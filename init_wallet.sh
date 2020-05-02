@@ -9,18 +9,18 @@ get_wallet_info(){
 }
 
 get_key_info(){
-    echo "Wallet password here!!!"
-    get_wallet_info
-    cleos -u http://172.17.0.2:8888 wallet private_keys
+    #echo "Wallet password here!!!"
+    #get_wallet_info
+    cleos -u http://172.17.0.2:8888 wallet private_keys --password $(cat wallet_pass.txt)
 }
 
 unlock_wallet(){
-    echo "Wallet password here!!!"
-    get_wallet_info
-    cleos -u http://172.17.0.2:8888 wallet unlock
+    #echo "Wallet password here!!!"
+    #get_wallet_info
+    cleos -u http://172.17.0.2:8888 wallet unlock --password $(cat wallet_pass.txt)
 }
 
-if [ $1 == "init_wallet" ]
+if [ $1 == "init" ]
 then
     echo "Init wallet!"
     init_wallet
@@ -32,7 +32,11 @@ elif [ $1 == "key_info" ]
 then
     echo "Get key info!"
     get_key_info
-elif [ $1 == "unlock_wallet" ]
+elif [ $1 == "key_add" ]
+then
+    echo "Create key!"
+    cleos -u http://172.17.0.2:8888 wallet create_key
+elif [ $1 == "unlock" ]
 then
     echo "Unlock wallet!"
     unlock_wallet
