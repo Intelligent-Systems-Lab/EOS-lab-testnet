@@ -50,13 +50,13 @@ bash EOS-lab-testnet/start_genesis.sh start
 bash EOS-lab-testnet/init_wallet.sh init
 ```
 and you will get a public-key
-<img src="https://github.com/tony92151/EOS-lab-testnet/blob/master/images/image1.png" width="400"/>
+<img src="https://raw.githubusercontent.com/Intelligent-Systems-Lab/EOS-lab-testnet/master/images/image1.png" width="400"/>
 
 then alse see private-key by
 ```sheel=
 bash EOS-lab-testnet/init_wallet.sh key_info
 ```
-<img src="https://github.com/tony92151/EOS-lab-testnet/blob/master/images/image2.png" width="400"/>
+<img src="https://raw.githubusercontent.com/Intelligent-Systems-Lab/EOS-lab-testnet/master/images/image2.png" width="400"/>
 
 ### Activate `WTMSIG_BLOCK_SIGNATURES` conscious
 
