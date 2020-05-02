@@ -20,3 +20,29 @@ bash run_docker.sh run 1 v4
 # remove node1
 bash run_docker.sh rm 1
 ```
+
+## Get start
+
+Clone repo
+```sheel=
+git clone https://github.com/Intelligent-Systems-Lab/EOS-lab-testnet.git
+```
+Init env
+```sheel=
+bash EOS-lab-testnet/init_env.sh default
+```
+Start genesis node
+```sheel=
+bash EOS-lab-testnet/start_genesis.sh init
+bash EOS-lab-testnet/start_genesis.sh start
+```
+Init wallet
+```sheel=
+bash EOS-lab-testnet/init_wallet.sh init
+```
+
+Activate `WTMSIG_BLOCK_SIGNATURES` conscious
+more [detial](https://www.bcskill.com/index.php/archives/884.html)
+```sheel=
+bash EOS-lab-testnet/fix_block.sh
+```
