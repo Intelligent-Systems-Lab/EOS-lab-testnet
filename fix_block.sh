@@ -2,7 +2,7 @@ apt -y install jq
 cd
 git clone --branch add-boot-contract https://github.com/EOSIO/eosio.contracts.git 
 cd eosio.contracts
-./build.sh && cd
+./build.sh -y && cd
 
 curl -X POST http://172.17.0.2:8888/v1/chain/get_activated_protocol_features -d '{}' | jq
 
