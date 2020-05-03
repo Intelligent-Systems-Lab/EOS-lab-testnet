@@ -82,13 +82,25 @@ export noden_key=EOS56s...
 export noden_pkey=5Kgp1...
 ```
 ```shell=
-nodeos --producer-name $node_name \
+# Node1(for 172.17.0.3)
+nodeos \
+--agent-name "EOS Agent - Node 1" 
+--producer-name $node_name \
 --plugin eosio::chain_api_plugin \
 --plugin eosio::net_api_plugin \
---http-server-address 0.0.0.0.0:8889 \
---p2p-listen-endpoint 0.0.0.0:9877 \
 --p2p-peer-address 172.17.0.2:9876 \
---private-key [\"$noden_key\",\"$noden_key\"]
+--p2p-peer-address 172.17.0.4:9876 \
+--private-key [\"$noden_key\",\"$noden_pkey\"]
+
+# Node1(for 172.17.0.4)
+nodeos \
+--agent-name "EOS Agent - Node 2" 
+--producer-name $node_name \
+--plugin eosio::chain_api_plugin \
+--plugin eosio::net_api_plugin \
+--p2p-peer-address 172.17.0.2:9876 \
+--p2p-peer-address 172.17.0.3:9876 \
+--private-key [\"$noden_key\",\"$noden_pkey\"]
 ```
 
 ### Register as block producer
