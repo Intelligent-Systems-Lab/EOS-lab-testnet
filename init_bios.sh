@@ -12,5 +12,14 @@ cleos -u http://$eos_endpoint create account eosio eosio.saving $eosio_pubkey -p
 cleos -u http://$eos_endpoint create account eosio eosio.stake $eosio_pubkey -p eosio@active
 cleos -u http://$eos_endpoint create account eosio eosio.vpay $eosio_pubkey -p eosio@active
 
+# https://github.com/EOSIO/eos/issues/7061
+# https://github.com/EOSIO/eos/issues/7710
+# https://www.bcskill.com/index.php/archives/816.html
+cleos -u http://$eos_endpoint create account eosio eosio.rex $eosio_pubkey -p eosio@active
+
 cleos -u http://$eos_endpoint set contract eosio.token eosio.contracts/build/contracts/eosio.token -p eosio.token@active
 cleos -u http://$eos_endpoint set contract eosio.msig eosio.contracts/build/contracts/eosio.msig -p eosio.msig@active
+
+
+cleos -u http://$eos_endpoint set contract eosio eosio.contracts/build/contracts/eosio.system -p eosio@active
+cleos -u http://$eos_endpoint push action eosio setpriv '["eosio.msig",1]' -p eosio@active

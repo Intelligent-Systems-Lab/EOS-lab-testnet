@@ -38,7 +38,7 @@ git clone https://github.com/Intelligent-Systems-Lab/EOS-lab-testnet.git
 Init env
 Go to [EOS Key Generation](https://nadejde.github.io/eos-token-sale/) get new key-pair or use default key
 ```sheel=
-bash EOS-lab-testnet/init_env.sh "172.17.0.2:8888" {private key} {public key}
+bash EOS-lab-testnet/init_env.sh 172.17.0.2 {private key} {public key}
 source ~/.bashrc
 
 # default endpoint and key-pair
@@ -52,7 +52,7 @@ bash EOS-lab-testnet/start_genesis.sh start
 ```
 ### Init wallet
 ```sheel=
-bash EOS-lab-testnet/init_wallet.sh  
+bash EOS-lab-testnet/init_wallet.sh init
 ```
 and you will get a public-key
 
