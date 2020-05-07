@@ -36,15 +36,16 @@ etc.
 git clone https://github.com/Intelligent-Systems-Lab/EOS-lab-testnet.git
 ```
 Init env
-Go to [EOS Key Generation](https://nadejde.github.io/eos-token-sale/) get new key-pair or use default key
 ```sheel=
-bash EOS-lab-testnet/init_env.sh 172.17.0.2 {private key} {public key}
-source ~/.bashrc
-
-# default endpoint and key-pair
+# default endpoint(172.17.0.2)
 bash EOS-lab-testnet/init_env.sh default
 source ~/.bashrc
 ```
+### set up system contract
+```sheel=
+bash EOS-lab-testnet/init_bios.sh
+```
+
 ### Start genesis node
 ```sheel=
 bash EOS-lab-testnet/start_genesis.sh init
@@ -78,8 +79,13 @@ bash EOS-lab-testnet/fix_bios.sh
 ```
 
 ### Create account
+create account 
 ```sheel=
 cleos -u http://$eos_endpoint create account eosio john {public key} -p eosio@active
+```
+create account and stack some money from `eosio`account
+```sheel=
+bash EOS-lab-testnet/create_account.sh john {public key}
 ```
 
 ### Start node
@@ -103,7 +109,7 @@ nodeos \
 --p2p-peer-address 172.17.0.4:9876 \
 --private-key [\"$noden_key\",\"$noden_pkey\"]
 
-# Node1(for 172.17.0.4)
+# Node2(for 172.17.0.4)
 nodeos \
 --agent-name "EOS Agent - Node 2" 
 --producer-name $node_name \
@@ -144,6 +150,13 @@ In contract `setprods`, it need the format like below.
     ]
 }
 ```
+
+### Stack for vote
+
+```sheel=
+cleos -u http://$eos_endpoint create account eosio john {public key} -p eosio@active
+```
+
 
 ## FLOW
 
