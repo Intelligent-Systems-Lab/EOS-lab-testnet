@@ -10,7 +10,7 @@ init_gene(){
     cd
     mkdir -p node
     cd node
-    wget https://raw.githubusercontent.com/Intelligent-Systems-Lab/EOS-lab-testnet/master/config.ini
+    wget https://raw.githubusercontent.com/Intelligent-Systems-Lab/EOS-lab-testnet/master/bp_node/config.ini
     wget https://genesis.testnet.eos.io/genesis.json
     cd
 }

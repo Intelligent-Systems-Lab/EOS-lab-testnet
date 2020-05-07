@@ -72,6 +72,11 @@ bash EOS-lab-testnet/fix_block.sh
 ```
 `Init wallet before Activate the conscious`
 
+### set bios contract
+```sheel=
+bash EOS-lab-testnet/fix_bios.sh
+```
+
 ### Create account
 ```sheel=
 cleos -u http://$eos_endpoint create account eosio john {public key} -p eosio@active
