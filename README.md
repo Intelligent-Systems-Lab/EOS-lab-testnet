@@ -53,7 +53,7 @@ bash EOS-lab-testnet/start_node.sh start
 ```
 ### Init wallet
 ```sheel=
-bash EOS-lab-testnet/init_wallet.sh init
+bash EOS-lab-testnet/wallet.sh init
 ```
 and you will get a public-key
 
@@ -61,7 +61,7 @@ and you will get a public-key
 
 then also see private-key by
 ```sheel=
-bash EOS-lab-testnet/init_wallet.sh key_info
+bash EOS-lab-testnet/wallet.sh key_info
 ```
 <img src="https://raw.githubusercontent.com/Intelligent-Systems-Lab/EOS-lab-testnet/master/images/image2.png" width="600"/>
 
