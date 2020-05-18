@@ -48,8 +48,8 @@ bash EOS-lab-testnet/init_bios.sh
 
 ### Start genesis node
 ```sheel=
-bash EOS-lab-testnet/start_genesis.sh init
-bash EOS-lab-testnet/start_genesis.sh start
+bash EOS-lab-testnet/start_node.sh init
+bash EOS-lab-testnet/start_node.sh start
 ```
 ### Init wallet
 ```sheel=
