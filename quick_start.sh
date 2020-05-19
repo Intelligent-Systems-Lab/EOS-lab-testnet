@@ -49,12 +49,16 @@ echo
 
 echo "Prepare..."
 sleep 1
-bash start_node.sh init >> /dev/null 2>&1
-bash start_node.sh start >> nodeos.log 2>&1 &
+bash EOS-lab-testnet/start_node.sh init >> /dev/null 2>&1
+bash EOS-lab-testnet/start_node.sh start >> nodeos.log 2>&1 &
+
+echo "Node is runing... "
+echo "Log : $PWD/nodeos.log"
 
 sleep 1
 
-echo "Fix some bug..."
+echo "System account key : \n $eosio_prikey \n $eosio_pubkey" >> nodeos.con
+echo "Node info save at : $PWD/nodeos.con"
 
 
 
