@@ -30,7 +30,7 @@ ask_keypair(){
     echo "Default private key : 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
     select yn in "default" "custom"; do
         case $yn in
-            "default" ) eosio_prikey=5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3; break;;
+            "default" ) eosio_prikey=5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3 && eosio_pubkey=EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV; break;;
             "custom" ) read -p "Enter new private key: "  eosio_prikey && read -p "Enter new public key: "  eosio_pubkey; break;;
         esac
     done
@@ -50,8 +50,9 @@ set_host_ip(){
 }
 
 set_bash(){
-    if [$1=="-key"]
+    if [ $1 == "-key" ]
     then
+        echo
         #echo "export eosio_prikey=$eosio_prikey" >> ~/.bashrc
         #echo "export eosio_pubkey=$eosio_pubkey" >> ~/.bashrc
     fi
@@ -59,8 +60,9 @@ set_bash(){
 }
 
 set_config(){
-    sed -i "s/p2p-peer-address = $ip//" node/config.ini
+    sed -i "s/p2p-peer-address = $ip/#p2p-peer-address = $ip/" node/config.ini
     sed -i "s/signature-provider = EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV=KEY:5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3/signature-provider = $eosio_pubkey=KEY:$eosio_prikey/" node/config.ini
+    sed -i "s/\"initial_key\": \"EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV\",/\"initial_key\": \"$eosio_pubkey\"/" node/genesis.json
 }
 
 run_node(){
