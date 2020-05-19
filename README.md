@@ -1,5 +1,9 @@
 # EOS-lab-testnet
 
+## Quick start guide
+
+[guide](https://github.com/Intelligent-Systems-Lab/EOS-lab-testnet/blob/master/quick_srart.md)
+
 ## Use docker 
 
 ```shell=

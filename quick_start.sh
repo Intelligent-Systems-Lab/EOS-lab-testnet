@@ -52,9 +52,9 @@ set_host_ip(){
 set_bash(){
     if [ $1 == "-key" ]
     then
-        echo
-        #echo "export eosio_prikey=$eosio_prikey" >> ~/.bashrc
-        #echo "export eosio_pubkey=$eosio_pubkey" >> ~/.bashrc
+        #echo
+        echo "export eosio_prikey=$eosio_prikey" >> ~/.bashrc
+        echo "export eosio_pubkey=$eosio_pubkey" >> ~/.bashrc
     fi
     echo "export eos_endpoint=172.17.0.2:8888" >> ~/.bashrc
 }
