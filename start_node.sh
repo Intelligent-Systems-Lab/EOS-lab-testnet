@@ -15,6 +15,15 @@ init_gene(){
     cd
 }
 
+init_node(){
+    cd
+    mkdir -p node
+    cd node
+    wget https://raw.githubusercontent.com/Intelligent-Systems-Lab/EOS-lab-testnet/master/node/config.ini
+    wget https://genesis.testnet.eos.io/genesis.json
+    cd
+}
+
 # start_gene(){
 #     nodeos -e -p eosio \
 #     --plugin eosio::producer_plugin \
@@ -46,10 +55,14 @@ then
     echo "Clean node!"
     rm -r /root/node/*
     init_gene
-elif [ $1 == "init" ]
+elif [ $1 == "init_gene" ]
 then
     echo "Init node!"
     init_gene
+elif [ $1 == "init_ord" ]
+then
+    #echo "Init node!"
+    init_node
 elif [ $1 == "start" ]
 then
     echo "Start node!"
