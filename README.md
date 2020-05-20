@@ -2,7 +2,7 @@
 
 ## Quick start guide
 
-[guide](https://github.com/Intelligent-Systems-Lab/EOS-lab-testnet/blob/master/quick_srart.md)
+[guide](https://github.com/Intelligent-Systems-Lab/EOS-lab-testnet/blob/master/quick_start.md)
 
 ## Use docker 
 

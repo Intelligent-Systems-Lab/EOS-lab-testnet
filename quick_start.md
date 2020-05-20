@@ -1,8 +1,10 @@
 # Quick Srart Guide
 
-## Quick start guide
+## clone repo
 
-[guide](https://github.com/Intelligent-Systems-Lab/EOS-lab-testnet/blob/master/quick_srart.md)
+```sheel=
+git clone https://github.com/Intelligent-Systems-Lab/EOS-lab-testnet.git
+```
 
 ## Use docker 
 
