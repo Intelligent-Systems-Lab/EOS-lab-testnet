@@ -2,53 +2,45 @@
 
 ## Quick start guide
 
-[guide](https://github.com/Intelligent-Systems-Lab/EOS-lab-testnet/blob/master/quick_start.md)
+[guide](quick_start.md)
 
-## Use docker 
+## Script Overview
 
-```shell=
-# node1 v4  
-docker run -d -it -p 8881:8080/tcp -p 8891:8888/tcp --name eos1 tony92151/eos_lab:v4
-
-# node2 v4
-docker run -d -it -p 8882:8080/tcp -p 8892:8888/tcp --name eos2 tony92151/eos_lab:v4
-
-# remove node1
-docker container rm -f eos1
-```
-or use script
-```shell=
-# start node1 for v4
-bash run_docker.sh run 1 v4
-
-# remove node1
-bash run_docker.sh rm 1
-```
-
-then go to browser
-
-http://localhost:8881 for eos1
-
-http://localhost:8882 for eos2
-
-etc.
-
-## Get start
-
-### Clone repo
+### quick srart
 ```sheel=
-git clone https://github.com/Intelligent-Systems-Lab/EOS-lab-testnet.git
+$ bash EOS-lab-testnet/quick_start.sh
 ```
-Init env
+This script can help you setup nodes quickly.
+Some of following scripts are called in this script.
+
+### Init env
+
 ```sheel=
-# default endpoint(172.17.0.2)
-bash EOS-lab-testnet/init_env.sh default
-source ~/.bashrc
+$ bash EOS-lab-testnet/init_env.sh default/{coustom endpoint}
+$ source ~/.bashrc
 ```
+This script set three environment variables,`eosio_prikey` `eosio_pubkey` `eos_endpoint`, in `~/.bashrc`
+
+Default endpoint(172.17.0.2) with default port :8888.
+
+Default eosio_prikey=5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
+
+Default eosio_pubkey=EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV 
+
+> This key-pair only used for development.
+
 ### set up system contract
 ```sheel=
 bash EOS-lab-testnet/init_bios.sh
 ```
+
+In this script, we set up 
+1. set `eosio.bios` contract
+2. set `eosio` account as producer
+3. create `eosio.msig` `eosio.bpay` `eosio.names` `eosio.ram` `eosio.ramfee` `eosio.saving` `eosio.stake` `eosio.vpay` accounts
+4. create `eosio.rex` account and make an initial transaction
+5. set `eosio.token` `eosio.msig` `eosio.system`contract and `push` an initial `action` of `setpriv`
+
 
 ### Start genesis node
 ```sheel=
@@ -130,47 +122,8 @@ nodeos \
 ```sheel=
 cleos -u http://$eos_endpoint push action eosio setprods "testnetprods.json" -p eosio@active
 ```
-In contract `setprods`, it need the format like below.
-
-`testnetprods.json`
-```json=
-{
-    "schedule": [
-        {
-            "producer_name": "eosio",
-            "authority": [
-                "block_signing_authority_v0",
-                {
-                    "threshold": 1,
-                    "keys": [
-                        {
-                            "key": "EOS8xxxx",
-                            "weight": 1
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
-}
-```
-
-### Stack for vote
-
-```sheel=
-cleos -u http://$eos_endpoint create account eosio john {public key} -p eosio@active
-```
 
 
-## FLOW
-
-**genesis node** : `Clone repo`>`Start genesis node`
-
-**node1** : `Clone repo`>`Init wallet`>`Create account`>`Start node`>`Register as block producer`
-
-**node2** : `Clone repo`>`Init wallet`>`Create account`>`Start node`>`Register as block producer`
-
-etc.
 
 
 

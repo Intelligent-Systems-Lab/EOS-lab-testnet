@@ -42,3 +42,4 @@ etc.
 ```shell=
 bash EOS-lab-testnet/quick_start.sh
 ```
+![image](images/image3.png)
