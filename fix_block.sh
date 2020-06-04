@@ -14,4 +14,4 @@ cleos -u http://$eos_endpoint push transaction '{"delay_sec":0,"max_cpu_usage_ms
 
 curl -X POST http://$eos_endpoint/v1/chain/get_activated_protocol_features -d '{}' | jq
 
-cleos -u http://$eos_endpoint set contract eosio eosio.contracts/build/contracts/eosio.bios -p eosio@active
+#cleos -u http://$eos_endpoint set contract eosio eosio.contracts/build/contracts/eosio.bios -p eosio@active

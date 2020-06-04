@@ -1,6 +1,6 @@
-cleos -u http://$eos_endpoint set contract eosio eosio.contracts/build/contracts/eosio.bios -p eosio@active
+#cleos -u http://$eos_endpoint set contract eosio eosio.contracts/build/contracts/eosio.bios -p eosio@active
 
-cleos -u http://$eos_endpoint push action eosio setprods '{"schedule": [{"producer_name": "eosio","authority": ["block_signing_authority_v0",{"threshold": 1,"keys": [{"key": '$eosio_pubkey',"weight": 1}]}]}]}' -p eosio
+#cleos -u http://$eos_endpoint push action eosio setprods '{"schedule": [{"producer_name": "eosio","authority": ["block_signing_authority_v0",{"threshold": 1,"keys": [{"key": '$eosio_pubkey',"weight": 1}]}]}]}' -p eosio
 
 cleos -u http://$eos_endpoint create account eosio eosio.token $eosio_pubkey -p eosio@active
 cleos -u http://$eos_endpoint create account eosio eosio.msig $eosio_pubkey -p eosio@active
