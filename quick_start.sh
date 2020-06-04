@@ -76,7 +76,7 @@ ask_genesis_pubkey(){
 
 set_host_ip(){
     ip=$(hostname -I)
-    ip=${ip% }:9876
+    ip=${ip% }
 }
 
 set_auto_production_flase(){
@@ -90,8 +90,10 @@ set_bash(){
         echo "export eosio_prikey=$eosio_prikey" >> ~/.bashrc
         echo "export eosio_pubkey=$eosio_pubkey" >> ~/.bashrc
         echo "export eos_endpoint=$ip:8888" >> ~/.bashrc
+        eos_endpoint=$ip:8888
     else
         echo "export eos_endpoint=$ip:8888" >> ~/.bashrc
+        eos_endpoint=$ip:8888
     fi
     
 }
@@ -140,23 +142,23 @@ set_download_contract_and_build(){
 set_create_system_accounts(){
     sleep 2
     cleos -u http://$eos_endpoint create account eosio eosio.token $eosio_pubkey -p eosio@active
-    sleep 0.3
+    sleep 0.2
     cleos -u http://$eos_endpoint create account eosio eosio.msig $eosio_pubkey -p eosio@active
-    sleep 0.3
+    sleep 0.2
     cleos -u http://$eos_endpoint create account eosio eosio.bpay $eosio_pubkey -p eosio@active
-    sleep 0.3
+    sleep 0.2
     cleos -u http://$eos_endpoint create account eosio eosio.names $eosio_pubkey -p eosio@active
-    sleep 0.3
+    sleep 0.2
     cleos -u http://$eos_endpoint create account eosio eosio.ram $eosio_pubkey -p eosio@active
-    sleep 0.3
+    sleep 0.2
     cleos -u http://$eos_endpoint create account eosio eosio.ramfee $eosio_pubkey -p eosio@active
-    sleep 0.3
+    sleep 0.2
     cleos -u http://$eos_endpoint create account eosio eosio.saving $eosio_pubkey -p eosio@active
-    sleep 0.3
+    sleep 0.2
     cleos -u http://$eos_endpoint create account eosio eosio.stake $eosio_pubkey -p eosio@active
-    sleep 0.3
+    sleep 0.2
     cleos -u http://$eos_endpoint create account eosio eosio.vpay $eosio_pubkey -p eosio@active
-    sleep 0.3
+    sleep 0.2
     cleos -u http://$eos_endpoint create account eosio eosio.rex $eosio_pubkey -p eosio@active
 }
 
@@ -178,7 +180,7 @@ set_create_token(){
 }
 
 set_system_contract(){
-    apt -y install jq &
+    apt -y install jq
     # It could time out, run 5 time to ensure
     sleep 0.5
     curl -X POST http://$eos_endpoint/v1/producer/schedule_protocol_feature_activations -d '{"protocol_features_to_activate": ["0ec7e080177b2c02b278d5088611686b49d739925a92d9bfcacd7fc6b74053bd"]}' | jq
@@ -256,8 +258,8 @@ then
     bash EOS-lab-testnet/start_node.sh init_gene >> /dev/null 2>&1
 
     ask_keypair
-    set_bash key
     set_host_ip
+    set_bash key
     set_config
     echo "Initial wallet..."
     set_init_wallet
@@ -285,8 +287,8 @@ then
     echo
     ask_producer_name
     echo
-    set_bash key
     set_host_ip
+    set_bash key
     set_auto_production_flase
     set_config bp
 

@@ -9,4 +9,4 @@ cleos -u http://$eos_endpoint system regproducer $1 $2
 # 'setprods' mean set accout to producer directly, which is not reasonable.
 
 # We can only set 'eosio.bios' contract, and use 'regproducer' to registed the account as candidate of producer.
-# Then stack 1.5 million coin. It will start produce block.
+# Then stack 150 million coin. It will start produce block.
