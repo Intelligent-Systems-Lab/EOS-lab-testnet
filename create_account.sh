@@ -1,5 +1,5 @@
 
-cleos -u http://$eos_endpoint  system newaccount --stake-net "50.0000 QAQ" --stake-cpu "50.0000 QAQ" --buy-ram-bytes 20480 eosio $1 $2 -p eosio
+cleos -u http://$eos_endpoint  system newaccount --stake-net "50.0000 QAQ" --stake-cpu "50.0000 QAQ" --buy-ram-kbytes 4096 eosio $1 $2 -p eosio
 
 cleos -u http://$eos_endpoint transfer eosio $1 "$3.0000 QAQ" "Give you $3 QAQ"
 

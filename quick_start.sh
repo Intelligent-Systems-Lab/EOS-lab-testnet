@@ -226,6 +226,7 @@ set_system_contract(){
     done
 
     # https://github.com/EOSIO/eos/issues/7061
+    # https://developers.eos.io/welcome/latest/tutorials/bios-boot-sequence/#22-initialize-system-account
     cleos -u http://$eos_endpoint push action eosio init '[0,"4,QAQ"]' -p eosio@active
 
     sleep 1
