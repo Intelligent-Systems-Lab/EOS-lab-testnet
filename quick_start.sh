@@ -1,16 +1,9 @@
 #!/bin/bash
 
-echo "     ----------       --------        ---            "
-echo "    |          |    /          |     |   |           "
-echo "     ---    ---     |   ------       |   |           "
-echo "        |  |        |  |             |   |           "
-echo "        |  |        |   ------       |   |           "
-echo "        |  |         \         \     |   |           "
-echo "        |  |           -----   |     |   |           "
-echo "        |  |                |  |     |   \           "
-echo "     ---    ---      -------   |     |    --------   "
-echo "    |          |    |          /     \            |  "
-echo "     ----------      ---------        ------------   "
+echo "  ___ ___ _      _      _   ___  "
+echo " |_ _/ __| |    | |    /_\ | _ ) "
+echo "  | |\__ \ |__  | |__ / _ \| _ \ "
+echo " |___|___/____| |____/_/ \_\___/ "
 echo
 
 
@@ -92,7 +85,7 @@ set_bash(){
         echo "export eos_endpoint=$ip:8888" >> ~/.bashrc
         eos_endpoint=$ip:8888
     else
-        echo "export eos_endpoint=$ip:8888" >> ~/.bashrc
+        echo "export eos_endpoint=172.17.0.2:8888" >> ~/.bashrc
         eos_endpoint=$ip:8888
     fi
     
