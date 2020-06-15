@@ -47,7 +47,7 @@ run_create_nodes_env(){
     # Setup 24 nodes for producers (total 25 nodes, include genesis node) 
     for i in {0000..0024}; do 
         sed -i "s/p2p-listen-endpoint = 0.0.0.0:9876/p2p-listen-endpoint = 0.0.0.0:90${i:2},/" nodes/node$i/config.ini
-        sed -i "s/# p2p-max-nodes-per-host = 1/p2p-max-nodes-per-host = 10,/" nodes/node$i/config.ini
+        sed -i "s/# p2p-max-nodes-per-host = 1/p2p-max-nodes-per-host = 10/" nodes/node$i/config.ini
         sed -i "s/p2p-peer-address = 172.17.0.2:9876/#p2p-peer-address = 172.17.0.2:9876,/" nodes/node$i/config.ini
         sed -i "s/p2p-peer-address = 172.17.0.3:9876/#p2p-peer-address = 172.17.0.3:9876,/" nodes/node$i/config.ini
         sed -i "s/p2p-peer-address = 172.17.0.4:9876/#p2p-peer-address = 172.17.0.4:9876,/" nodes/node$i/config.ini
@@ -74,11 +74,13 @@ run_create_nodes_env(){
 
 echo
 echo "Generate/Download key pairs..."
+echo "It will take about 5 second."
 
-run_keygen_download
+run_keygen_download > /dev/null 2>&1
 
 echo
 echo "Create nodes environment..."
+echo "It will take about 20 second."
 
 run_create_nodes_env
 
