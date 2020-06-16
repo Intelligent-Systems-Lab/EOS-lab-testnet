@@ -56,11 +56,11 @@ run_create_nodes_env(){
         sed -i "s/p2p-server-address = localhost:9876/p2p-server-address = localhost:90${i:2}/" nodes/node$i/config.ini
         
         sed -i "s/# p2p-max-nodes-per-host = 1/p2p-max-nodes-per-host = 10/" nodes/node$i/config.ini
-        sed -i "s/p2p-peer-address = 172.17.0.2:9876/#p2p-peer-address = 172.17.0.2:9876/" nodes/node$i/config.ini
-        sed -i "s/p2p-peer-address = 172.17.0.3:9876/#p2p-peer-address = 172.17.0.3:9876/" nodes/node$i/config.ini
-        sed -i "s/p2p-peer-address = 172.17.0.4:9876/#p2p-peer-address = 172.17.0.4:9876/" nodes/node$i/config.ini
-        sed -i "s/p2p-peer-address = 172.17.0.5:9876/#p2p-peer-address = 172.17.0.5:9876/" nodes/node$i/config.ini
-        sed -i "s/p2p-peer-address = 172.17.0.6:9876/#p2p-peer-address = 172.17.0.6:9876/" nodes/node$i/config.ini
+        sed -i "s/p2p-peer-address = 172.17.0.2:9876/#p2p-peer-address = 172.17.0.2:9876,/" nodes/node$i/config.ini
+        sed -i "s/p2p-peer-address = 172.17.0.3:9876/#p2p-peer-address = 172.17.0.3:9876,/" nodes/node$i/config.ini
+        sed -i "s/p2p-peer-address = 172.17.0.4:9876/#p2p-peer-address = 172.17.0.4:9876,/" nodes/node$i/config.ini
+        sed -i "s/p2p-peer-address = 172.17.0.5:9876/#p2p-peer-address = 172.17.0.5:9876,/" nodes/node$i/config.ini
+        sed -i "s/p2p-peer-address = 172.17.0.6:9876/#p2p-peer-address = 172.17.0.6:9876,/" nodes/node$i/config.ini
 
         for j in {0000..0024}; do
             echo "p2p-peer-address = localhost:90${j:2}" >> nodes/node$i/config.ini
@@ -161,7 +161,7 @@ set_system_contract(){
     # It could time out, run 5 time to ensure
     sleep 0.5
     curl -X POST http://localhost:8800/v1/producer/schedule_protocol_feature_activations -d '{"protocol_features_to_activate": ["0ec7e080177b2c02b278d5088611686b49d739925a92d9bfcacd7fc6b74053bd"]}' | jq
-    for i in {1..5};
+    for i in {1..3};
     do
         sleep 1
         cleos -u http://localhost:8800 set contract eosio $EOSIO_OLD_CONTRACTS_DIRECTORY/eosio.system -p eosio@active
@@ -196,7 +196,7 @@ set_system_contract(){
     sleep 0.5
     cleos -u http://localhost:8800 push action eosio setpriv '["eosio.msig",1]' -p eosio@active
 
-    for i in {1..5};
+    for i in {1..3};
     do
         sleep 1
         cleos -u http://localhost:8800 set contract eosio $EOSIO_CONTRACTS_DIRECTORY/eosio.system -p eosio@active
@@ -208,8 +208,45 @@ set_system_contract(){
 
     sleep 1
     #cleos -u http://$eos_endpoint set contract eosio $EOSIO_CONTRACTS_DIRECTORY/eosio.bios -p eosio@active
+}
 
+set_voters(){
+    for i in {00025..0035}; do
+        user_name=$(echo user${i}_name)
+        user_pvt=$(echo user${i}_pvt)
+        user_pub=$(echo user${i}_pub)
+        sleep 0.1
+        cleos -u http://localhost:8800  system newaccount --stake-net "50.0000 QAQ" --stake-cpu "50.0000 QAQ" --buy-ram-kbytes 4096 eosio ${!user_name} ${!user_pub} -p eosio
+        sleep 0.1
+        cleos -u http://localhost:8800 transfer eosio ${!user_name} "20000000.0000 QAQ" "Give you 20000000 QAQ"
+        echo "Node $i get 20000000 QAQ"
+    done
+}
 
+set_producers(){
+    for i in {0001..0024}; do
+        user_name=$(echo user${i}_name)
+        user_pvt=$(echo user${i}_pvt)
+        user_pub=$(echo user${i}_pub)
+        sleep 0.1
+        cleos -u http://localhost:8800  system newaccount --stake-net "50.0000 QAQ" --stake-cpu "50.0000 QAQ" --buy-ram-kbytes 4096 eosio ${!user_name} ${!user_pub} -p eosio
+        sleep 0.1
+        cleos -u http://localhost:8800 transfer eosio ${!user_name} "100.0000 QAQ" "Give you 100 QAQ"
+        sleep 0.1
+        cleos -u http://localhost:8800 system regproducer ${!user_name} ${!user_pub} https://localhost:90${i:2}
+        echo "Node $i set to producers"
+    done
+}
+
+run_vote(){
+    for i in {00025..0035}; do
+        user_name=$(echo user${i}_name)
+        user_pvt=$(echo user${i}_pvt)
+        user_pub=$(echo user${i}_pub)
+        sleep 0.1
+        cleos -u http://localhost:8800 system voteproducer prods ${!user_name} 
+    done
+    
 }
 
 
@@ -249,7 +286,7 @@ run_nodes
 echo
 read -p "Press [Enter] to setup producers..."
 
-
+set_producers
 
 echo " --------"
 echo "|Done... |"
