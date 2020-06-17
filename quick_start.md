@@ -49,7 +49,7 @@ If you want to generate new keypairs yourself, check this [repo](https://github.
 Launch a script that can make transaction between nodes (0025~0035) automatically.
 
 ```shell==
-bash transaction_loop.sh
+bash EOS-lab-testnet/transaction_loop.sh
 ```
 
 ## Explorer
