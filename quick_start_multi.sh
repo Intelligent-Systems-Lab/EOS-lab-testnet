@@ -71,7 +71,7 @@ run_create_nodes_env(){
         user_pub=$(echo user${i}_pub)
 
         sed -i "s/p2p-peer-address = localhost:90${i:2}/#p2p-peer-address = localhost:90${i:2}/" nodes/node$i/config.ini
-        sed -i "s/http-server-address = 0.0.0.0:8888/http-server-address = localhost:88${i:2}/" nodes/node$i/config.ini
+        sed -i "s/http-server-address = 0.0.0.0:8888/http-server-address = 0.0.0.0:88${i:2}/" nodes/node$i/config.ini
         sed -i "s/signature-provider = EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV=KEY:5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3/signature-provider = ${!user_pub}=KEY:${!user_pvt}/" nodes/node$i/config.ini
         
 
