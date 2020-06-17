@@ -1,45 +1,53 @@
-# Quick Srart Guide
+# Quick Start Guide
 
-## clone repo
+We provide two quick start script.
 
-```sheel=
-git clone https://github.com/Intelligent-Systems-Lab/EOS-lab-testnet.git
+1. launch multi-node in one instance (same as [BIOS Boot Sequence](https://developers.eos.io/welcome/latest/tutorials/bios-boot-sequence), but we use shell script) 
+
+```shell=
+bash quick_start_multi.sh
 ```
+
+2. launch single node in one instance and connect between instances
+
+```shell=
+bash quick_start.sh
+```
+
+# multi-node
 
 ## Use docker 
 
 ```shell=
-# node1 v5
-docker run -d -it -p 8881:8080/tcp -p 8891:8888/tcp --name eos1 tony92151/eos_lab:v5
-
-# node2 v5
-docker run -d -it -p 8882:8080/tcp -p 8892:8888/tcp --name eos2 tony92151/eos_lab:v5
-
-# remove node1
-docker container rm -f eos1
-```
-or use script
-```shell=
-# start node1 for v5
-bash run_docker.sh run 1 v5
-
-# remove node1
-bash run_docker.sh rm 1
+# node v5
+docker run -d -it -p 8881:8080/tcp -p 8800:8800/tcp --name eos tony92151/eos_lab:official
 ```
 
 then go to browser
 
-http://localhost:8881 for eos1
-
-http://localhost:8882 for eos2
-
-etc.
-
-## Create Genesis eos node
-
-`In docker container`
+http://localhost:8881
 
 ```shell=
-bash EOS-lab-testnet/quick_start.sh
+cd
+git clone https://github.com/Intelligent-Systems-Lab/EOS-lab-testnet.git
+
+bash EOS-lab-testnet/quick_start_multi.sh
+
+cleos -u http://localhost:8800 get info
 ```
-![image](images/image3.png)
+and press [ENTER] to continue.
+
+DONE
+
+```
+This will create 25 nodes as producers. The first node 0000 will be genesis node. After the genesis node is launched and the system contract (nodes folder) set, we launch others nodes as producers (node0000~0024) and voters (node0025~0035).
+```
+All key pairs can be found [here](https://github.com/Intelligent-Systems-Lab/eos-keygen/blob/master/python/account_50.txt).
+
+If you want to generate new keypairs yourself, check this [repo](https://github.com/Intelligent-Systems-Lab/eos-keygen).
+
+## Explorer
+
+[EOS Aeosauthority](https://eosauthority.com/?network=localtest&endpoint=http:%2F%2F127.0.0.1:8800&token_symbol=QAQ) is a good tool for developer to check transation's information on browser.
+
+![image](images/eosauth.jpg)
