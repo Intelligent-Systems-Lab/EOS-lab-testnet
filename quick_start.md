@@ -19,7 +19,6 @@ bash quick_start.sh
 ## Use docker 
 
 ```shell=
-# node v5
 docker run -d -it -p 8881:8080/tcp -p 8800:8800/tcp --name eos tony92151/eos_lab:official
 ```
 
@@ -39,12 +38,19 @@ and press [ENTER] to continue.
 
 DONE
 
-```
-This will create 25 nodes as producers. The first node 0000 will be genesis node. After the genesis node is launched and the system contract (nodes folder) set, we launch others nodes as producers (node0000~0024) and voters (node0025~0035).
-```
+This script will create 25 nodes as producers. The first node 0000 will be genesis node. After the genesis node is launched and the system contract (nodes folder) set, we launch others nodes as producers (node0000~0024) and voters (node0025~0035).
+
 All key pairs can be found [here](https://github.com/Intelligent-Systems-Lab/eos-keygen/blob/master/python/account_50.txt).
 
 If you want to generate new keypairs yourself, check this [repo](https://github.com/Intelligent-Systems-Lab/eos-keygen).
+
+### what's next?
+
+Launch a script that can make transaction between nodes (0025~0035) automatically.
+
+```shell==
+bash transaction_loop.sh
+```
 
 ## Explorer
 
