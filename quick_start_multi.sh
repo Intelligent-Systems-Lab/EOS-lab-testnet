@@ -19,8 +19,8 @@ run_keygen_download(){
     #cd eos-keygen
     echo "Download key-pairs from wget https://github.com/Intelligent-Systems-Lab/eos-keygen/raw/master/python/account_50.txt"
     cd 
-    wget https://github.com/Intelligent-Systems-Lab/eos-keygen/raw/master/python/account_50.txt
-    source ./account_50.txt
+    wget https://github.com/Intelligent-Systems-Lab/eos-keygen/raw/master/python/account_200.txt
+    source ./account_200.txt
 
     gene_pvt=$user0000_pvt
     gene_pub=$user0000_pub
@@ -252,6 +252,29 @@ run_vote(){
     done    
 }
 
+ask_more_users(){
+    echo "Add more nodes ? (65 nodes, total 100 nodes)"
+    select yn in "yes" "no"; do
+        case $yn in
+            "yes" ) run_add_more_users; break;;
+            "no" ) break;;
+        esac
+    done
+}
+
+run_add_more_users(){
+    for i in {0036..0100}; do
+        user_name=$(echo user${i}_name)
+        user_pvt=$(echo user${i}_pvt)
+        user_pub=$(echo user${i}_pub)
+        sleep 0.1
+        cleos -u http://localhost:8800  system newaccount --stake-net "50.0000 QAQ" --stake-cpu "50.0000 QAQ" --buy-ram-kbytes 4096 eosio ${!user_name} ${!user_pub} -p eosio
+        #sleep 0.1
+        #cleos -u http://localhost:8800 transfer eosio ${!user_name} "21000000.0000 QAQ" "Give you 21000000 QAQ"
+        echo "User $i activate."
+    done
+}
+
 # https://stackoverflow.com/questions/18460123/how-to-add-leading-zeros-for-for-loop-in-shell
 
 echo
@@ -287,12 +310,20 @@ run_nodes
 echo
 read -p "Press [Enter] to setup producers..."
 
+echo
 set_producers
 read -p "Press [Enter] set voter..."
 set_voters
 
+echo
 read -p "Press [Enter] to vote..."
 run_vote
+
+
+echo
+read -p "Press [Enter] to add users..."
+ask_more_users
+
 
 echo " --------"
 echo "|Done... |"
