@@ -1,4 +1,4 @@
-source account_50.txt
+source account_200.txt
 
 for i in {1..100}; do
     sleep $(python3 -c "import random; print(random.randint(0,20)/10)")
